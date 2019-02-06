@@ -1,0 +1,76 @@
+#map {
+    height: 90%;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 0px;
+  height: 700px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 40%;
+}
+
+.right {
+  width: 60%;
+  }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+table, th, td {
+  border: 1px solid black;
+}
+
+#iw-container {
+	margin-bottom: 20px;
+}
+
+#iw-container .iw-title {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 22px;
+	font-weight: 400;
+	padding: 10px;
+	background-color: #48b5e9;
+	color: white;
+	margin: 0;
+	border-radius: 2px 2px 0 0;
+}
