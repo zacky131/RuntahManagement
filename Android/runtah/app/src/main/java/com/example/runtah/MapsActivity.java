@@ -1,30 +1,18 @@
 package com.example.runtah;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,12 +21,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterManager;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
+// TODO: This code below is the perfect working
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private ClusterManager<MyItem>clusterManager;
+    private List<MyItem> items = new ArrayList<>();
+
 
     Double latitude;
     Double longitude;
@@ -57,9 +53,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
-
+        clusterManager = new ClusterManager<MyItem>(this, mMap);
+        mMap.setOnCameraIdleListener(clusterManager);
+        mMap.setOnMarkerClickListener(clusterManager);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -76,10 +73,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.child("locations").getChildren()){
+                for (DataSnapshot child : dataSnapshot.child("locations").getChildren()){ // Ini harus di ubah berdasarkan struktur database
                     latitude = child.child("Latitude").getValue(Double.class);
                     longitude = child.child("Longitude").getValue(Double.class);
                     FillLevel = child.child("FillLevel").getValue(Double.class);
@@ -87,35 +86,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                     LatLng latLng = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .title(SerialNumber)
-                            .snippet("Fill Level = " + FillLevel )
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.open_trash)));
+                    if (FillLevel <=30) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title(SerialNumber)
+                                .snippet("Fill Level = " + FillLevel + " %")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    }
+                    else if (30 < FillLevel && FillLevel <= 60) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title(SerialNumber)
+                                .snippet("Fill Level = " + FillLevel + " %")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                    }
+                    else if (60 < FillLevel && FillLevel < 90) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title(SerialNumber + ": I Almost Full")
+                                .snippet("Fill Level = " + FillLevel + " %")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    }
+
+                    else if (FillLevel >= 90 ) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title(SerialNumber + ": PICK ME UP!!")
+                                .snippet("Fill Level = " + FillLevel + " %")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    }
+
                 }
 
-
-
+                clusterManager.cluster();
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-//        // Construct a CameraPosition focusing on Jakarta and animate the camera to that position.
-//        LatLng jakarta = new LatLng(-6.182181,106.828523);
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(jakarta)      // Sets the center of the map to Jakarta
-//                .zoom(8)                   // Sets the zoom
-//                .bearing(0)                // Sets the orientation of the camera to east
-//                .tilt(0)                   // Sets the tilt of the camera to 30 degrees
-//                .build();                   // Creates a CameraPosition from the builder
-//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
-
-
+        // Construct a CameraPosition focusing on Jakarta and animate the camera to that position.
+        LatLng jakarta = new LatLng(-6.182181,106.828523);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(jakarta)      // Sets the center of the map to Jakarta
+                .zoom(8)                   // Sets the zoom
+                .bearing(0)                // Sets the orientation of the camera to east
+                .tilt(0)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 
 //        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
