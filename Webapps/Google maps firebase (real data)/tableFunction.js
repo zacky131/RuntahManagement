@@ -21,7 +21,6 @@ database.once('value', function(snapshot){
             content += '<td>' + Latitude + '</td>';//column2
             content += '<td>' + Longitude + '</td>';//column3
             content += '<td>' + FillLevel + '</td>';//column4
-            content += '<td>' + TrashDistance + '</td>';//column5
             content += '</tr>';
         });
         $('#ex-table').append(content);

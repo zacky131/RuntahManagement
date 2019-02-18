@@ -43,11 +43,11 @@ ul {
 }
 
 .left {
-  width: 60%;
+  width: 25%;
 }
 
 .right {
-  width: 40%;
+  width: 75%;
   }
 
 /* Clear floats after the columns */

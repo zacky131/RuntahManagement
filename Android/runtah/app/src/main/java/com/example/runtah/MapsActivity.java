@@ -54,12 +54,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Double longitude;
     Double FillLevel;
     String SerialNumber;
+    String Time;
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
+
+
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -98,41 +103,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
                 for (DataSnapshot child : dataSnapshot.child("locations").getChildren()){ // Ini harus di ubah berdasarkan struktur database
                     latitude = child.child("Latitude").getValue(Double.class);
                     longitude = child.child("Longitude").getValue(Double.class);
                     FillLevel = child.child("FillLevel").getValue(Double.class);
                     SerialNumber = child.child("SerialNumber").getValue(String.class);
-
+                    Time = child.child("Time").getValue(String.class);
+                    String TitleText = "Volume Terisi = " + FillLevel + " %" ;
+                    String  SnippetText = "Update Terakhir: " + Time;
 
                     LatLng latLng = new LatLng(latitude, longitude);
                     if (FillLevel <=30) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(SerialNumber)
-                                .snippet("Fill Level = " + FillLevel + " %")
+                                .title(TitleText)
+                                .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                     }
                     else if (30 < FillLevel && FillLevel <= 60) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(SerialNumber)
-                                .snippet("Fill Level = " + FillLevel + " %")
+                                .title(TitleText)
+                                .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                     }
                     else if (60 < FillLevel && FillLevel < 90) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(SerialNumber + ": I Almost Full")
-                                .snippet("Fill Level = " + FillLevel + " %")
+                                .title(TitleText + ": Hampir Penuh!")
+                                .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     }
 
                     else if (FillLevel >= 90 ) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(SerialNumber + ": PICK ME UP!!")
-                                .snippet("Fill Level = " + FillLevel + " %")
+                                .title(TitleText + ": Tolong di Angkut!!!")
+                                .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     }
 
@@ -194,8 +203,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
+//                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+//                                    DEFAULT_ZOOM);
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
