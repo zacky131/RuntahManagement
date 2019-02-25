@@ -49,6 +49,50 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81294655132:android:b9ea7f06b67b2538",
+        "android_client_info": {
+          "package_name": "com.resikin.runtah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81294655132-romqv16m2m3dqfhddt9rsseebmkkv6mt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resikin.runtah",
+            "certificate_hash": "bba1f539cba6ce91d2980e9fa16367ac24dd4cf0"
+          }
+        },
+        {
+          "client_id": "81294655132-97i2p8ddsqkvht5ls37l9o9tko0vop9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOTaKtZ0y5HwXblhirER6zgUPzYJ6oRbo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81294655132-97i2p8ddsqkvht5ls37l9o9tko0vop9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
