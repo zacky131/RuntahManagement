@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tumbler">
+    package="com.resikin.tumbler">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -37,7 +37,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".singin_activity"
+            android:name="com.resikin.tumbler.singin_activity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,9 +45,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapsActivity"/>
-        <activity android:name=".MyLocation"/>
-        <activity android:name=".singup_activity" />
+        <activity android:name="com.resikin.tumbler.MapsActivity"/>
+        <activity android:name="com.resikin.tumbler.MyLocation"/>
+        <activity android:name="com.resikin.tumbler.singup_activity" />
 
     </application>
 
