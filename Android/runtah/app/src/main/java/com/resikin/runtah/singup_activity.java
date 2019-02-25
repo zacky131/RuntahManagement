@@ -1,4 +1,4 @@
-package com.example.runtah;
+package com.resikin.runtah;
 
 import android.content.Intent;
 import android.os.Bundle;

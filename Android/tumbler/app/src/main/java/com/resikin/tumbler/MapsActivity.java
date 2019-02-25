@@ -1,4 +1,4 @@
-package com.example.runtah;
+package com.resikin.tumbler;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -7,7 +7,6 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,11 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import android.widget.Toast;
-import android.util.Log;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -52,9 +50,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     Double latitude;
     Double longitude;
-    Double FillLevel;
     String SerialNumber;
-    String Time;
+    String WaktuBuka;
 
 
 
@@ -104,49 +101,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
                 for (DataSnapshot child : dataSnapshot.child("locations").getChildren()){ // Ini harus di ubah berdasarkan struktur database
                     latitude = child.child("Latitude").getValue(Double.class);
                     longitude = child.child("Longitude").getValue(Double.class);
-                    FillLevel = child.child("FillLevel").getValue(Double.class);
                     SerialNumber = child.child("SerialNumber").getValue(String.class);
-                    Time = child.child("Time").getValue(String.class);
-                    String TitleText = "Volume Terisi = " + FillLevel + " %" ;
-                    String  SnippetText = "Update Terakhir: " + Time;
+                    WaktuBuka = child.child("WaktuBuka").getValue(String.class);
+                    String TitleText = SerialNumber ;
+                    String  SnippetText = "Waktu buka: " + WaktuBuka;
 
                     LatLng latLng = new LatLng(latitude, longitude);
-                    if (FillLevel <=30) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title(TitleText)
                                 .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                    }
-                    else if (30 < FillLevel && FillLevel <= 60) {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title(TitleText)
-                                .snippet(SnippetText)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                    }
-                    else if (60 < FillLevel && FillLevel < 90) {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title(TitleText + ": Hampir Penuh!")
-                                .snippet(SnippetText)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                    }
-
-                    else if (FillLevel >= 90 ) {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title(TitleText + ": Tolong di Angkut!!!")
-                                .snippet(SnippetText)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                    }
-
                 }
-
                 clusterManager.cluster();
             }
 

@@ -1,4 +1,4 @@
-package com.example.tumbler;
+package com.resikin.runtah;
 
 import org.junit.Test;
 
