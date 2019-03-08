@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "245586835974",
+    "firebase_url": "https://silaturahmi-6a0c9.firebaseio.com",
+    "project_id": "silaturahmi-6a0c9",
+    "storage_bucket": "silaturahmi-6a0c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245586835974:android:e3fbea75d2938254",
+        "android_client_info": {
+          "package_name": "com.resikin.silaturahmi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245586835974-t7jkbt18oqlmf0eklajlgs017c3p0qtt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resikin.silaturahmi",
+            "certificate_hash": "bba1f539cba6ce91d2980e9fa16367ac24dd4cf0"
+          }
+        },
+        {
+          "client_id": "245586835974-11bo86024qsadabnfa2et4vie6iri38n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18ZNwQp_oAoJy05VUxB184yGo5s1N52M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245586835974-11bo86024qsadabnfa2et4vie6iri38n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
