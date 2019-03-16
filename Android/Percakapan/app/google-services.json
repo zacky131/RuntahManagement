@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "486891710652",
+    "firebase_url": "https://percakapan-b85fd.firebaseio.com",
+    "project_id": "percakapan-b85fd",
+    "storage_bucket": "percakapan-b85fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486891710652:android:cd5d45c81fdf70e6",
+        "android_client_info": {
+          "package_name": "com.resikin.percakapan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486891710652-qovmq77anaglq100tq657aj8hr4nh4nc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resikin.percakapan",
+            "certificate_hash": "bba1f539cba6ce91d2980e9fa16367ac24dd4cf0"
+          }
+        },
+        {
+          "client_id": "486891710652-hs8oqbsfkta5ksmqipipu49a3pepv4up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsoueUrjwZpu9p19fm2H7HL9B__AA0SaA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486891710652-hs8oqbsfkta5ksmqipipu49a3pepv4up.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

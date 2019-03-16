@@ -7,5 +7,6 @@
     <string name="failed">Authentication failed</string>
     <string name="image">image</string>
     <string name="create_a_new_account">Create a new Account!</string>
+
     <!--<string name="default_web_client_id">Create web client id</string>-->
 </resources>

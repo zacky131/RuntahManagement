@@ -52,11 +52,14 @@ public class ChatsFragment extends Fragment {
         PrivateCharsView = inflater.inflate(R.layout.fragment_chats, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
-            currentUserID = mAuth.getCurrentUser().getUid();
-            ChatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
-            UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        if (mAuth.getCurrentUser() == null) {
+            Intent goToLogin = new Intent(getContext(), LoginActivity.class);
+            startActivity(goToLogin);
         }
+
+        currentUserID = mAuth.getCurrentUser().getUid();
+        ChatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         chatsList = (RecyclerView) PrivateCharsView.findViewById(R.id.chat_list);
         chatsList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,6 +71,7 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         FirebaseRecyclerOptions<Contacts> options =
                 new FirebaseRecyclerOptions.Builder<Contacts>()
                 .setQuery(ChatsRef, Contacts.class)
@@ -97,7 +101,7 @@ public class ChatsFragment extends Fragment {
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(View v) {
+                                        public void onClick(View view) {
                                             Intent chatIntent = new Intent(getContext(), ChatActivity.class);
                                             chatIntent.putExtra("visit_user_id", usersIDs);
                                             chatIntent.putExtra("visit_user_name", retName);
