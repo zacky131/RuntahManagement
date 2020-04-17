@@ -51,6 +51,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Double latitude;
     Double longitude;
     Double FillLevel;
+    Double Temperature;
+    Double Humidity;
     String SerialNumber;
     String Time;
 
@@ -107,10 +109,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     latitude = child.child("Latitude").getValue(Double.class);
                     longitude = child.child("Longitude").getValue(Double.class);
                     FillLevel = child.child("FillLevel").getValue(Double.class);
+                    Temperature = child.child("Temperature").getValue(Double.class);
+                    Humidity = child.child("Humidity").getValue(Double.class);
                     SerialNumber = child.child("SerialNumber").getValue(String.class);
                     Time = child.child("Time").getValue(String.class);
-                    String TitleText = "Volume Terisi = " + FillLevel + " %" ;
-                    String  SnippetText = "Update Terakhir: " + Time;
+                    String TitleText = "Vol= " + FillLevel + " %," + "Temp= " + Temperature + "degC, " + "Hum= " + Humidity + "%" ;
+                    String  SnippetText = "Time: " + Time;
 
                     LatLng latLng = new LatLng(latitude, longitude);
                     if (FillLevel <=30) {
@@ -130,7 +134,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     else if (60 < FillLevel && FillLevel < 90) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(TitleText + ": Hampir Penuh!")
+                                .title(TitleText)
                                 .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     }
@@ -138,7 +142,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     else if (FillLevel >= 90 ) {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
-                                .title(TitleText + ": Tolong di Angkut!!!")
+                                .title(TitleText)
                                 .snippet(SnippetText)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     }
@@ -234,6 +238,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
